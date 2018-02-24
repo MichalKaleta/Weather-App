@@ -1,0 +1,48 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "Simple webpack boilerplate for React with Redux development with optimal configuration to start",
+  "main": "index.js",
+  "scripts": {
+    "serve": "webpack-dev-server --open",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichalKaleta/Weather-App.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "webpack",
+    "boilerplate"
+  ],
+  "author": "Michał Kaleta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichalKaleta/Weather-App/issues"
+  },
+  "homepage": "https://github.com/MichalKaleta/Weather-App#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.9",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^2.30.1",
+    "style-loader": "^0.20.2",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.1"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "react-sparklines": "^1.7.0",
+    "redux": "^3.7.2",
+    "redux-promise": "^0.5.3"
+  }
+}
