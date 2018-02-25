@@ -4,40 +4,46 @@ import {bindActionCreators} from 'redux';
 import {fetchWeather} from '../actions/index';
 
 class SearchBar extends Component {
+  componentDidMount(){
 
+    document.getElementById('search-city').focus()
+   
+  }
     constructor(props){
         super(props)
-        this.state= {term: "kraków" };
-        this.onFormSubmit("",this.state.term) ;
+        this.state= {};
     }
-
-    render(){
-        return (
-            <form onSubmit={  (ev)=>{this.onFormSubmit(ev,this.state.term) }  }>
-                <label htmlFor ="citySearch"></label>
-                <input 
-                    id="citySearch" type="text"
-                    onChange ={ (ev)=> this.onInputChange(ev.target.value) } />
-                <button type="submit">Search</button>
-            </form>
-        )
-    }
-
     onInputChange(term){
-       this.setState({term})
+      this.setState({term})
     }
 
     onFormSubmit(ev,term){
-       if(ev){
-        ev.preventDefault();
-       }
-        this.props.fetchWeather(term)
+       ev.preventDefault();
+      document.getElementById('search-city').value =""
+       this.props.fetchWeather(term)
     }
-    
+   
+    render(){
+        return (
+         <div>
+          <h1 className='page-header'> Current Weather</h1>
+            <form className="form-inline" onSubmit={  (ev)=>{this.onFormSubmit(ev,this.state.term) }  }>  
+            
+              <div className="form-group">
+                <input id="search-city" className='form-control rounded-0'  type="text" placeholder="enter city"
+                       onChange ={ (ev)=> this.onInputChange(ev.target.value) }
+                 />
+                <button type="submit" className="btn btn-success rounded-0">Search</button>
+              </div>              
+            </form>
+          </div>
+        
+        )
+    }
 } 
  
 function mapDispatchToProps(dispatch){
   return    bindActionCreators({fetchWeather},dispatch)
 }
-/////////////connnet( stateToPROPS, dispatchToSTATE )(container )
+
 export default connect(null, mapDispatchToProps)(SearchBar);
