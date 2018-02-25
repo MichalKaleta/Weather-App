@@ -5,9 +5,12 @@ export default function(state=[], action){
 
    switch(action.type){
         case FETCH_WEATHER:
+        // console.log(state.concat(action.payload.data));
+         if(action.payload.data){
+            return state.concat(action.payload.data);
+           } else {return state}
         
-         return state.concat(action.payload.data);
-        }
-  
-   return state
+        default:
+           return state
+    }
 }
