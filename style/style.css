@@ -1,17 +1,43 @@
-.btn-forecast{
-  
-  transition: all 0.5s;
-  transform: translateX(100px);
-  opacity: 0;
+
+body, .container-fluid{
+
+  height: 100vh;
+  /* //width: 100%; */
 }
+.table td , .table th {
 
-.table td{
-
+text-align: center;
  vertical-align: middle;
 }
 
-.row-city:hover .btn-forecast {
+form{
 
-  transform: translateX(0);
-  opacity: 1;
+  margin-bottom: 30px;
+}
+
+.table .row-city:hover , .table .row-5day:hover{
+
+  background-color: #cfc;
+  
+}
+.table .row-city:hover{
+
+  cursor: pointer;
+}
+.btn-back{
+  display: flex;
+ align-items: center;
+  margin-top: 5px;
+}
+@media only screen and (max-width: 470px) {
+  * {
+      padding: 1px  !important;
+      margin:0  !important;
+    }
+    body  {
+      font-size: 0.7em ;
+      }
+    h1{
+      font-size: 2em ;
+    }
 }

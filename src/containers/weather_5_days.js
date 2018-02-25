@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import Chart  from '../components/chart';
 import { Link } from 'react-router-dom';
 
-const monthNames = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
-const dayNames =['Sun.','Mon.','Tue.','Wed.','Thu.','Fri.','Sat.']
+import Chart  from '../components/chart';
+import WeatherRow from '../components/days_5_row'
+
 class Weather5Days extends Component {
   getHeader(){
     
@@ -22,65 +22,51 @@ class Weather5Days extends Component {
     return [];
   }
   getWeathers(){
+
     var list =this.props.weather5Days.list;
     if(!list){
-      return; 
-    }
-      
-      const timeZone = new Date().getTimezoneOffset();
-
-    /*  list = list.filter((elem)=>{
-          var timeOfDay=elem.dt % unixDay;
-          return ( timeOfDay ===0||timeOfDay=== 32400 || timeOfDay===54000 );
-      }) */
-      return list.map( elem=>{ 
-
-        const timeToZone = Date.parse(elem.dt_txt) + timeZone*60000;
-        const time = new Date(timeToZone)     
-        const hour = time.getHours();
-        const date =time.getDate();
-        const day =time.getDay();
-        const month =time.getMonth();
-        const today =new Date().getDate();
+      return(  <div className="text-center">  
+                   <i className="fa fa-spinner fa-spin" style={{fontSize: "15em" }} ></i>
+               </div>
+               )
+     }
+    return(
     
-        var dateFormated= (date === today) ? 'Today' :dayNames[day]+' '+ monthNames[month]+' '+date;
-            dateFormated = (date === today+1) ? 'Tomorrow' : dateFormated;
-        const icon =elem.weather[0].icon+'.png'
-        const temp = Math.round(elem.main.temp)
-        return ( 
-          <tr key ={elem.dt}>
-            <td>{dateFormated}</td>
-            <td>{hour}<sup>00</sup></td>
-            <td>  <img src={"http://openweathermap.org/img/w/"+icon }/> </td>
-            <td>{temp} &deg;C</td>
-          </tr>  
-            )
-        }
-      ) 
+      <table className="table table-striped table-hover">
+          <thead>      
+            <tr>
+              <th>Date</th>
+              <th>Hour</th>
+              <th>Aura</th>
+              <th>Weath</th>
+              <th>Temp</th>
+              <th>Hum</th>
+              <th>Press</th>
+            </tr>
+          </thead>
+          <tbody>{
+            list.map( elem=>{ 
+              return <WeatherRow  key ={elem.dt} elem = { elem } />
+                  })
+          }</tbody>
+      </table>
+    )
+           
   }                  
   render() {
     return(
       <div>
-     { <h3>5-day Weather Forecast for {this.getHeader() }</h3>}
-      <Link to="/" className="btn btn-success" >Back</Link>
-     *according to Your local time zone
-      <table className="table table-hover">
-        <thead>      
-        <tr><th colspan="5"><Chart data={this.getDataforChart()}/></th></tr>  
-          <tr>
-          <th>Day</th>
-           <th>Weather</th>
-           <th>Tempertures</th>
-           <th>Humidities</th>
-           <th>Preasures</th>
-          </tr>
-        </thead>
-        <tbody>
-          
-           {  this.getWeathers() } 
-        </tbody>
-     </table>
-     </div>
+        <div > 
+          <div className="page-header d-flex justify-content-between" >
+            <h1 className="d-inline">Weather Forecast for {this.getHeader() }</h1>
+              <Link to="/" className="btn btn-warning btn-lg right rounded-0 btn-back">Back To List</Link>
+          </div>
+        </div>
+        <div>
+          <Chart data={this.getDataforChart()}/>
+        </div>  
+          {this.getWeathers()}
+      </div>
         )
     }
  }
