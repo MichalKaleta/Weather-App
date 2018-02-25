@@ -11,43 +11,32 @@ class WeatherList extends Component {
     //console.log(city)
    this.props.fetch5DaysWeather(city)
   }
-  checkIfReady(){
-    if(!this.props.weather){
-      return null;
-    }
-   return this.props.weather.map((elem,index)=>{
+  checkIfReady(cities){
+    // if(cities[cities.length-1]===undefined){
+      //return ;
+    //} 
+   return this.props.weather.map((city,index) =>{
     
-        const city = elem.name;
-        const icon =elem.weather[0].icon+'.png';
-        const temp =Math.round(elem.main.temp-273.15);
-        const humidity = elem.main.humidity;
-        const pressure = elem.main.pressure;
+        const icon =city.weather[0].icon+'.png';
+        const temp =Math.round(city.main.temp);
+        const humidity = city.main.humidity;
+        const pressure = Math.round(city.main.pressure);
         
-      
         return (
           
-          <tr key={ index  }  >
-            <td   >
-              { city }
-            </td>
+          <tr className= "row-city"
+              key={ index  }  >
+            <td   >   { city.name } </td>
+            <td> <img src={"http://openweathermap.org/img/w/"+icon } />  </td>
+            <td>  { temp } &deg;C   </td>
+            <td> { humidity } % </td>
+            <td> { pressure } hPa </td>
             <td>
-              <img src={"http://openweathermap.org/img/w/"+icon } />
+              <Link to ="/forecast" 
+                    className='btn btn-primary btn-forecast'
+                    onClick= { this.onLinkClicked.bind(this, city.name) }>Forecast 
+              </Link>
             </td>
-            <td>
-              { temp } &deg;C
-            </td>
-            <td>
-              { humidity } %
-            </td>
-            <td>
-              { pressure } hPa
-            </td>
-          <td>
-            <Link to ="/forecast" 
-                  className='btn btn-primary'
-                  onClick= { this.onLinkClicked.bind(this, city) }>Forecast 
-            </Link>
-          </td>
           </tr>
         ) 
       })
@@ -57,15 +46,15 @@ class WeatherList extends Component {
       <table className="table table-hover">
         <thead>       
           <tr>
-           <th>City</th> 
-           <th>Weather</th>
-           <th>Temperature</th>
-           <th>Humiditity</th>
-           <th>Preasure </th>
+            <th>City</th> 
+            <th>Weather</th>
+            <th>Temperature</th>
+            <th>Humiditity</th>
+            <th>Preasure </th>
           </tr>
         </thead>
         <tbody>
-           {/* { this.props.weather.map(this.showRow.bind(this)) }  */ this.checkIfReady() }
+           {this.checkIfReady(this.props.weather) }
         </tbody>
      </table>
         )

@@ -7,37 +7,32 @@ class SearchBar extends Component {
 
     constructor(props){
         super(props)
-        this.state= {term: "kraków" };
-        this.onFormSubmit("",this.state.term) ;
+        this.state= {};
+    }
+    onInputChange(term){
+      this.setState({term})
     }
 
+    onFormSubmit(ev,term){
+       ev.preventDefault();
+       this.props.fetchWeather(term)
+    }
+   
     render(){
         return (
             <form onSubmit={  (ev)=>{this.onFormSubmit(ev,this.state.term) }  }>
                 <label htmlFor ="citySearch"></label>
                 <input 
-                    id="citySearch" type="text"
+                    id="citySearch" type="text" placeholder="enter city"
                     onChange ={ (ev)=> this.onInputChange(ev.target.value) } />
-                <button type="submit">Search</button>
+                <button type="submit" className="btn btn-success">Search</button>
             </form>
         )
     }
-
-    onInputChange(term){
-       this.setState({term})
-    }
-
-    onFormSubmit(ev,term){
-       if(ev){
-        ev.preventDefault();
-       }
-        this.props.fetchWeather(term)
-    }
-    
 } 
  
 function mapDispatchToProps(dispatch){
   return    bindActionCreators({fetchWeather},dispatch)
 }
-/////////////connnet( stateToPROPS, dispatchToSTATE )(container )
+
 export default connect(null, mapDispatchToProps)(SearchBar);
